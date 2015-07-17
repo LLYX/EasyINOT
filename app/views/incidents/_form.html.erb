@@ -1,0 +1,89 @@
+<%= form_for(@incident) do |f| %>
+  <% if @incident.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@incident.errors.count, "error") %> prohibited this incident from being saved:</h2>
+
+      <ul>
+      <% @incident.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :from %><br>
+    <%= select_tag(:from, options_from_collection_for_select(MailingList.all, :emails, :name), :include_blank => true) %>
+    <br>
+    <%= f.text_area :from %>
+  </div>
+  <div class="field">
+    <%= f.label :to %><br>
+     <%= select_tag(:to, options_from_collection_for_select(MailingList.all, :emails, :name), {:multiple => true, :size => 10}) %>
+    <br>
+    <%= f.text_area :to %>
+  </div>
+  <div class="field">
+    <%= f.label :update_number %><br>
+    <%= f.text_field :update_number %>
+  </div>
+  <div class="field">
+    <%= f.label :priority %><br>
+    <%= f.text_field :priority %>
+  </div>
+  <div class="field">
+    <%= f.label :affected_departments %><br>
+    <%= select_tag(:affected_departments, options_from_collection_for_select(Department.all, :english_name, :english_name), {:multiple => true, :size => 10}) %>
+    <br>
+    <%= f.text_area :affected_departments %>
+  </div>
+  <div class="field">
+    <%= f.label :service_impact %><br>
+    <%= select_tag(:service_impact, options_from_collection_for_select(Application.all, :english_name, :english_name), {:multiple => true, :size => 10}) %>
+    <br>
+    <%= f.text_area :service_impact %>
+  </div>
+  <div class="field">
+    <%= f.label :responsible_service_support_resource_group %><br>
+    <%= select_tag(:responsible_service_support_resource_group, options_from_collection_for_select(Group.all, :english_name, :english_name), {:multiple => true, :size => 10}) %>
+    <br>
+    <%= f.text_area :responsible_service_support_resource_group %>
+  </div>
+  <div class="field">
+    <%= f.label :resolved %><br>
+    <%= f.check_box :resolved %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_area :status %>
+  </div>
+  <div class="field">
+    <%= f.label :resolution %><br>
+    <%= f.text_area :resolution %>
+  </div>
+  <div class="field">
+    <%= f.label :incident_number %><br>
+    <%= f.text_field :incident_number %>
+  </div>
+  <div class="field">
+    <%= f.label :actual_start_date_and_time %><br>
+    <%= f.datetime_select :actual_start_date_and_time %>
+  </div>
+  <div class="field">
+    <%= f.label :recorded_start_date_and_time %><br>
+    <%= f.datetime_select :recorded_start_date_and_time %>
+  </div>
+  <div class="field">
+    <%= f.label :resolved_date_and_time %><br>
+    <%= f.datetime_select :resolved_date_and_time, :include_blank => true %>
+  </div>
+  <div class="field">
+    <%= f.label :incident_responsibility %><br>
+    <%= select_tag(:incident_responsibility, options_from_collection_for_select(Department.all, :english_name, :english_name), {:multiple => true, :size => 10}) %>
+    <br>
+    <%= f.text_area :incident_responsibility %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

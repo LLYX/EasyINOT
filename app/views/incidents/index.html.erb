@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Incidents</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>From</th>
+      <th>To</th>
+      <th>Update number</th>
+      <th>Priority</th>
+      <th>Affected departments</th>
+      <th>Service impact</th>
+      <th>Responsible service support resource group</th>
+      <th>Resolved</th>
+      <th>Status</th>
+      <th>Resolution</th>
+      <th>Incident number</th>
+      <th>Actual start date and time</th>
+      <th>Recorded start date and time</th>
+      <th>Incident responsibility</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @incidents.each do |incident| %>
+      <tr>
+        <td><%= incident.from %></td>
+        <td><%= incident.to %></td>
+        <td><%= incident.update_number %></td>
+        <td><%= incident.priority %></td>
+        <td><%= incident.affected_departments %></td>
+        <td><%= incident.service_impact %></td>
+        <td><%= incident.responsible_service_support_resource_group %></td>
+        <td><%= incident.resolved %></td>
+        <td><%= incident.status %></td>
+        <td><%= incident.resolution %></td>
+        <td><%= incident.incident_number %></td>
+        <td><%= incident.actual_start_date_and_time %></td>
+        <td><%= incident.recorded_start_date_and_time %></td>
+        <td><%= incident.incident_responsibility %></td>
+        <td><%= link_to 'Show', incident %></td>
+        <td><%= link_to 'Edit', edit_incident_path(incident) %></td>
+        <td><%= link_to 'Destroy', incident, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Incident', new_incident_path %>

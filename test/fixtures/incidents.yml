@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  from: MyText
+  to: MyText
+  update_number: MyString
+  priority: MyString
+  affected_departments: MyText
+  service_impact: MyText
+  responsible_service_support_resource_group: MyText
+  resolved: false
+  status: MyText
+  resolution: MyText
+  incident_number: MyString
+  actual_start_date_and_time: 2015-07-15 22:08:37
+  recorded_start_date_and_time: 2015-07-15 22:08:37
+  incident_responsibility: MyText
+
+two:
+  from: MyText
+  to: MyText
+  update_number: MyString
+  priority: MyString
+  affected_departments: MyText
+  service_impact: MyText
+  responsible_service_support_resource_group: MyText
+  resolved: false
+  status: MyText
+  resolution: MyText
+  incident_number: MyString
+  actual_start_date_and_time: 2015-07-15 22:08:37
+  recorded_start_date_and_time: 2015-07-15 22:08:37
+  incident_responsibility: MyText

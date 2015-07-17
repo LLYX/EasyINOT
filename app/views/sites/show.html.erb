@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Site code:</strong>
+  <%= @site.site_code %>
+</p>
+
+<p>
+  <strong>English name:</strong>
+  <%= @site.english_name %>
+</p>
+
+<p>
+  <strong>French name:</strong>
+  <%= @site.french_name %>
+</p>
+
+<p>
+  <strong>Designated:</strong>
+  <%= @site.designated %>
+</p>
+
+<%= link_to 'Edit', edit_site_path(@site) %> |
+<%= link_to 'Back', sites_path %>
