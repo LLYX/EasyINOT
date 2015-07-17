@@ -69,6 +69,6 @@ class ApplicationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_params
-      params.require(:application).permit(:english_name, :french_name, :critical, {:departments => []}, {:groups => []})
+      params.require(:application).permit(:english_name, :french_name, :critical, {:department_ids => []}, {:group_ids => []})
     end
 end

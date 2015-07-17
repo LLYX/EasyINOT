@@ -18,6 +18,7 @@
       <th>Incident number</th>
       <th>Actual start date and time</th>
       <th>Recorded start date and time</th>
+      <th>Resolved date and time</th>
       <th>Incident responsibility</th>
       <th colspan="3"></th>
     </tr>
@@ -39,6 +40,7 @@
         <td><%= incident.incident_number %></td>
         <td><%= incident.actual_start_date_and_time %></td>
         <td><%= incident.recorded_start_date_and_time %></td>
+        <td><%= incident.resolved_date_and_time %></td>
         <td><%= incident.incident_responsibility %></td>
         <td><%= link_to 'Show', incident %></td>
         <td><%= link_to 'Edit', edit_incident_path(incident) %></td>
