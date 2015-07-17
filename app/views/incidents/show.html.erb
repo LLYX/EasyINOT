@@ -1,79 +1,61 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>From:</strong>
-  <%= @incident.from %>
-</p>
-
-<p>
-  <strong>To:</strong>
-  <%= @incident.to %>
-</p>
-
-<p>
-  <strong>Update number:</strong>
-  <%= @incident.update_number %>
-</p>
-
-<p>
-  <strong>Priority:</strong>
-  <%= @incident.priority %>
-</p>
-
-<p>
-  <strong>Affected departments:</strong>
-  <%= @incident.affected_departments %>
-</p>
-
-<p>
-  <strong>Service impact:</strong>
-  <%= @incident.service_impact %>
-</p>
-
-<p>
-  <strong>Responsible service support resource group:</strong>
-  <%= @incident.responsible_service_support_resource_group %>
-</p>
-
-<p>
-  <strong>Resolved:</strong>
-  <%= @incident.resolved %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @incident.status %>
-</p>
-
-<p>
-  <strong>Resolution:</strong>
-  <%= @incident.resolution %>
-</p>
-
-<p>
-  <strong>Incident number:</strong>
-  <%= @incident.incident_number %>
-</p>
-
-<p>
-  <strong>Actual start date and time:</strong>
-  <%= @incident.actual_start_date_and_time %>
-</p>
-
-<p>
-  <strong>Recorded start date and time:</strong>
-  <%= @incident.recorded_start_date_and_time %>
-</p>
-
-<p>
-  <strong>Resolved date and time:</strong>
-  <%= @incident.resolved_date_and_time %>
-</p>
-
-<p>
-  <strong>Incident responsibility:</strong>
-  <%= @incident.incident_responsibility %>
-</p>
-
+<div class="show_inot">
+  <p>
+    <strong>From:</strong>
+    <%= @incident.from %>
+  </p>
+  
+  <p>
+    <strong>To:</strong>
+    <%= @incident.to %>
+  </p>
+  
+  <p>
+    <strong>Subject:</strong>
+    <% update_status = "" %>
+    <% if @incident.update_number == '0' %>
+      <% update_status = "Initial" %>
+    <% elsif @incident.update_number != 'Final' %>
+      <% update_status = 'Update #' + @incident.update_number %>
+    <% end %>
+    INOT - <%= @incident.priority %> Priority - <%= update_status %> - <%= @incident.affected_departments %> - <%= @incident.service_impact %>
+  </p>
+  
+  <img src="/assets/sscheader.png">
+  <p style="color:blue; font-style:italic">Le français suit l'anglais.</p>
+  
+  <% if !@incident.resolved? %>
+    <h5 style="color:red; text-align:center">
+      <strong>Outage Alert</strong><br><br>
+      <strong><%= @incident.priority + ' Priority' %></strong>
+    </h3>
+  <% else %>
+    <h5 style="color:green; text-align:center">
+      <strong>Resolution Alert</strong><br><br>
+      <strong><%= @incident.priority + ' Priority' %></strong>
+    </h3>
+  <% end %> 
+  
+  <% @incident.attributes.each do |attr_name, attr_value| %>
+  
+    <% if !@incident.resolved? && ['id', 'from', 'to', 'to2', 'to3', 'to4', 'to5', 
+      'update_number', 'priority', 'resolved', 'resolution', 
+      'resolved_date_and_time', 'created_at', 'updated_at'].exclude?(attr_name)  %>
+      <p style="color:red; text-decoration: underline">
+        <strong><%= attr_name.humanize + ':' %></strong>
+      </p>
+      <%= attr_value %><br><br>
+    <% elsif @incident.resolved? && ['id', 'from', 'to', 'to2', 'to3', 'to4', 
+      'to5', 'update_number', 'priority', 'resolved', 'status', 'created_at',
+      'updated_at'].exclude?(attr_name) %>
+      <p style="color:green; text-decoration: underline">
+        <strong><%= attr_name.humanize + ':' %></strong>
+      </p>
+      <%= attr_value %><br><br>
+    <% else %>
+    <% end %>
+  <% end %>
+</div>
 <%= link_to 'Edit', edit_incident_path(@incident) %> |
 <%= link_to 'Back', incidents_path %>
