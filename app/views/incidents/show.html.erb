@@ -15,11 +15,20 @@
     <strong>Subject:</strong>
     <% update_status = "" %>
     <% if @incident.update_number == '0' %>
-      <% update_status = "Initial" %>
+      <% update_status = 'Initial' %>
     <% elsif @incident.update_number != 'Final' %>
       <% update_status = 'Update #' + @incident.update_number %>
     <% end %>
-    INOT - <%= @incident.priority %> Priority - <%= update_status %> - <%= @incident.affected_departments %> - <%= @incident.service_impact %>
+    <% update_status_french = "" %>
+    <% if @incident.update_number == '0' %>
+      <% update_status = 'Initial' %>
+    <% elsif @incident.update_number != 'Finale' %>
+      <% update_status = 'Mise-à-jour #' + @incident.update_number %>
+    <% end %>
+    INOT - <%= @incident.priority %> Priority - <%= update_status %> - 
+    <%= @incident.affected_departments %> - <%= @incident.service_impact %> /
+    AI - Priorité <%= t(@incident.priority.to_sym) + update_status_french %> - 
+    <%= @departments %> - <%= Application.where(english_name: @incident.service_impact).take.french_name %>
   </p>
   
   <img src="/assets/sscheader.png">
@@ -39,23 +48,88 @@
   
   <% @incident.attributes.each do |attr_name, attr_value| %>
   
-    <% if !@incident.resolved? && ['id', 'from', 'to', 'to2', 'to3', 'to4', 'to5', 
-      'update_number', 'priority', 'resolved', 'resolution', 
-      'resolved_date_and_time', 'created_at', 'updated_at'].exclude?(attr_name)  %>
+    <% if !@incident.resolved? && ['id', 'from', 'to', 'update_number', 
+      'priority', 'resolved', 'resolution', 'resolved_date_and_time', 
+      'created_at', 'updated_at'].exclude?(attr_name)  %>
       <p style="color:red; text-decoration: underline">
         <strong><%= attr_name.humanize + ':' %></strong>
       </p>
-      <%= attr_value %><br><br>
+      <% if ['affected_departments', 'responsible_service_support_resource_group', 
+              'incident_responsibility'].include?(attr_name) %>
+        <%= simple_format(attr_value) %><br>
+      <% else %>
+        <%= attr_value %><br><br>
+      <% end %>
     <% elsif @incident.resolved? && ['id', 'from', 'to', 'to2', 'to3', 'to4', 
       'to5', 'update_number', 'priority', 'resolved', 'status', 'created_at',
       'updated_at'].exclude?(attr_name) %>
       <p style="color:green; text-decoration: underline">
         <strong><%= attr_name.humanize + ':' %></strong>
       </p>
-      <%= attr_value %><br><br>
-    <% else %>
+      <% if ['affected_departments', 'responsible_service_support_resource_group', 
+              'incident_responsibility'].include?(attr_name) %>
+        <%= simple_format(attr_value) %><br>
+      <% else %>
+        <%= attr_value %><br><br>
+      <% end %>
+    <% end %>
+  <% end %>
+  
+  <br>
+  
+  <% if !@incident.resolved? %>
+    <h5 style="color:red; text-align:center">
+      <strong>Avertissement de panne</strong><br><br>
+      <strong><%= 'Priorité ' + t(@incident.priority.to_sym) %></strong>
+    </h3>
+  <% else %>
+    <h5 style="color:green; text-align:center">
+      <strong>Avertissement de résolution</strong><br><br>
+      <strong><%= 'Priorité ' + t(@incident.priority.to_sym) %></strong>
+    </h3>
+  <% end %> 
+  
+  <% @incident.attributes.each do |attr_name, attr_value| %>
+  
+    <% if !@incident.resolved? && ['id', 'from', 'to', 
+      'update_number', 'priority', 'resolved', 'resolution', 
+      'resolved_date_and_time', 'created_at', 'updated_at'].exclude?(attr_name)  %>
+      <p style="color:red; text-decoration: underline">
+        <strong><%= t(attr_name.to_sym) + ':'  %></strong>
+      </p>
+      <% if ['affected_departments', 'responsible_service_support_resource_group', 
+              'incident_responsibility'].include?(attr_name) %>
+        <% if attr_name == 'affected_departments' %>
+          <%= simple_format(@departments) %><br>
+        <% elsif attr_name == 'responsible_service_support_resource_group' %>
+          <%= simple_format(@groups) %><br>
+        <% elsif attr_name == 'incident_responsibility' %>
+          <%= simple_format(@responsible) %><br>
+        <% end %>
+      <% else %>
+        <%= attr_value %><br><br>
+      <% end %>
+    <% elsif @incident.resolved? && ['id', 'from', 'to', 'update_number', 
+      'priority', 'resolved', 'status', 'created_at', 
+      'updated_at'].exclude?(attr_name) %>
+      <p style="color:green; text-decoration: underline">
+        <strong><%= t(attr_name.to_sym) + ':'  %></strong>
+      </p>
+      <% if ['affected_departments', 'responsible_service_support_resource_group', 
+              'incident_responsibility'].include?(attr_name) %>
+        <% if attr_name == 'affected_departments' %>
+          <%= simple_format(@departments) %><br>
+        <% elsif attr_name == 'responsible_service_support_resource_group' %>
+          <%= simple_format(@groups) %><br>
+        <% elsif attr_name == 'incident_responsibility' %>
+          <%= simple_format(@responsible) %><br>
+        <% end %>
+      <% else %>
+        <%= attr_value %><br><br>
+      <% end %>
     <% end %>
   <% end %>
 </div>
+
 <%= link_to 'Edit', edit_incident_path(@incident) %> |
 <%= link_to 'Back', incidents_path %>

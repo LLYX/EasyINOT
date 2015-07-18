@@ -13,11 +13,11 @@ class Incident < ActiveRecord::Base
                 end
                 self.affected_departments = @departments_string
             end
-            if self.responsible_service_support_resource_group = ""
+            if self.responsible_service_support_resource_group == ""
                 @groups = @application.groups
                 @groups_string = ""
                 @groups.each do |g|
-                    @groups_string += g.english_name + "\n"
+                    @groups_string = g.english_name + "\n"
                 end
                 self.responsible_service_support_resource_group = @groups_string
             end

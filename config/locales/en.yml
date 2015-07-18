@@ -21,3 +21,16 @@
 
 en:
   hello: "Hello world"
+
+  High: "élevée"
+  Critical: "critique"
+  affected_departments: "Ministères affectés"
+  service_impact: "Impact sur les services"
+  responsible_service_support_resource_group: "Group de soutien des services responsable"
+  status: "Statut"
+  resolution: "Résolution"
+  incident_number: "Numéro d'incident"
+  actual_start_date_and_time: "Date et heure de l’incident"
+  recorded_start_date_and_time: "Date et heure de l’enregistrement"
+  resolved_date_and_time: "Date et heure de résolution"
+  incident_responsibility: "Responsabilité de l’incident"
