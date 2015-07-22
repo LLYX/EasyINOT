@@ -28,7 +28,7 @@
     INOT - <%= @incident.priority %> Priority - <%= update_status %> - 
     <%= @incident.affected_departments %> - <%= @incident.service_impact %> /
     AI - Priorité <%= t(@incident.priority.to_sym) + update_status_french %> - 
-    <%= @departments %> - <%= Application.where(english_name: @incident.service_impact).take.french_name %>
+    <%= @departments %> - <%= Application.exists?(english_name: @incident.service_impact) ? Application.where(english_name: @incident.service_impact).take.french_name : Site.where(english_name: @incident.service_impact).take.french_name %>
   </p>
   
   <img src="/assets/sscheader.png">

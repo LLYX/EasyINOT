@@ -4,7 +4,7 @@ class Incident < ActiveRecord::Base
     private
     def auto_fill 
         if self.service_impact != ""
-            @application = Application.where(english_name: self.service_impact).take
+            @application = Application.exists?(english_name: self.service_impact) ? Application.where(english_name: self.service_impact).take : Site.where(english_name: self.service_impact).take
             if self.affected_departments == ""
                 @departments = @application.departments
                 @departments_string = ""
