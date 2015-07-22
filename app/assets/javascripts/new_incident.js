@@ -25,7 +25,8 @@ ready = function() {
     var affected_selectbox = document.getElementById("affected_departments");
     var affected_textbox = document.getElementById("incident_affected_departments");
     
-    var impact_selectbox = document.getElementById("service_impact");
+    var impact_selectbox = document.getElementsByName("service_impact[]")[0];
+    var impact_selectbox2 = document.getElementsByName("service_impact[]")[1];
     var impact_textbox = document.getElementById("incident_service_impact");
     
     var group_selectbox = document.getElementById("responsible_service_support_resource_group");
@@ -48,6 +49,10 @@ ready = function() {
     
     impact_selectbox.addEventListener("change", function() {
         getSelectValues(impact_selectbox, impact_textbox);
+    });
+    
+    impact_selectbox2.addEventListener("change", function() {
+        getSelectValues(impact_selectbox2, impact_textbox);
     });
     
     group_selectbox.addEventListener("change", function() {
