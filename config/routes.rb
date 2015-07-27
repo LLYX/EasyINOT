@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :mailing_lists
-  resources :mailing_lists
   resources :groups
   resources :sites
   resources :applications

@@ -4,7 +4,7 @@ class MailingListsController < ApplicationController
   # GET /mailing_lists
   # GET /mailing_lists.json
   def index
-    @mailing_lists = MailingList.all
+    @mailing_lists = MailingList.order(:name)
   end
 
   # GET /mailing_lists/1

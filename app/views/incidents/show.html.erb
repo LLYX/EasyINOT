@@ -35,14 +35,14 @@
   <p style="color:blue; font-style:italic">Le français suit l'anglais.</p>
   
   <% if !@incident.resolved? %>
-    <h5 style="color:red; text-align:center">
-      <strong>Outage Alert</strong><br><br>
-      <strong><%= @incident.priority + ' Priority' %></strong>
+    <h3 style="color:red; text-align:center">
+      <strong>Outage Alert</strong><br>
+      <strong><%= @incident.priority + ' Priority' %></strong><br>
     </h3>
   <% else %>
-    <h5 style="color:green; text-align:center">
-      <strong>Resolution Alert</strong><br><br>
-      <strong><%= @incident.priority + ' Priority' %></strong>
+    <h3 style="color:green; text-align:center">
+      <strong>Resolution Alert</strong><br>
+      <strong><%= @incident.priority + ' Priority' %></strong><br>
     </h3>
   <% end %> 
   
@@ -78,14 +78,14 @@
   <br>
   
   <% if !@incident.resolved? %>
-    <h5 style="color:red; text-align:center">
-      <strong>Avertissement de panne</strong><br><br>
-      <strong><%= 'Priorité ' + t(@incident.priority.to_sym) %></strong>
+    <h3 style="color:red; text-align:center">
+      <strong>Avertissement de panne</strong><br>
+      <strong><%= 'Priorité ' + t(@incident.priority.to_sym) %></strong><br>
     </h3>
   <% else %>
-    <h5 style="color:green; text-align:center">
-      <strong>Avertissement de résolution</strong><br><br>
-      <strong><%= 'Priorité ' + t(@incident.priority.to_sym) %></strong>
+    <h3 style="color:green; text-align:center">
+      <strong>Avertissement de résolution</strong><br>
+      <strong><%= 'Priorité ' + t(@incident.priority.to_sym) %></strong><br>
     </h3>
   <% end %> 
   
