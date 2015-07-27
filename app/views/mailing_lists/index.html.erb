@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Mailing Lists</h1>
-
+<%= will_paginate @mailing_lists %>
 <table>
   <thead>
     <tr>
@@ -23,7 +23,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @mailing_lists %>
 <br>
 
 <%= link_to 'New Mailing list', new_mailing_list_path %>

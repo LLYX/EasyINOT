@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Incidents</h1>
-
+<%= will_paginate @incidents %>
 <table>
   <thead>
     <tr>
@@ -49,7 +49,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @incidents %>
 <br>
 
 <%= link_to 'New Incident', new_incident_path %>

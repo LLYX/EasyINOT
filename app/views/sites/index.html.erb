@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Sites</h1>
-
+<%= will_paginate @sites %>
 <table>
   <thead>
     <tr>
@@ -27,7 +27,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @sites %>
 <br>
 
 <%= link_to 'New Site', new_site_path %>

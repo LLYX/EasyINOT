@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Departments</h1>
-
+<%= will_paginate @departments %>
 <table>
   <thead>
     <tr>
@@ -23,7 +23,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @departments %>
 <br>
 
 <%= link_to 'New Department', new_department_path %>

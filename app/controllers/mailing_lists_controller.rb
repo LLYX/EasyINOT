@@ -4,7 +4,7 @@ class MailingListsController < ApplicationController
   # GET /mailing_lists
   # GET /mailing_lists.json
   def index
-    @mailing_lists = MailingList.order(:name)
+    @mailing_lists = MailingList.order(:name).paginate(page: params[:page], per_page: 25)
   end
 
   # GET /mailing_lists/1
