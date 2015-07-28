@@ -2,6 +2,10 @@ class Incident < ActiveRecord::Base
     before_save :auto_fill
     
     private
+
+    # Fetch the associated departments and support groups of an application/site and fill them into the incident
+    # automatically.
+    
     def auto_fill 
         if self.service_impact != ""
             @application = Application.exists?(english_name: self.service_impact) ? Application.where(english_name: self.service_impact).take : Site.where(english_name: self.service_impact).take

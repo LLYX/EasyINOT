@@ -14,20 +14,20 @@
   <p>
     <strong>Subject:</strong>
     <% update_status = "" %>
-    <% if @incident.update_number == '0' %>
-      <% update_status = 'Initial' %>
-    <% elsif @incident.update_number != 'Final' %>
-      <% update_status = 'Update #' + @incident.update_number %>
-    <% end %>
     <% update_status_french = "" %>
     <% if @incident.update_number == '0' %>
       <% update_status = 'Initial' %>
-    <% elsif @incident.update_number != 'Finale' %>
-      <% update_status = 'Mise-à-jour #' + @incident.update_number %>
+      <% update_status_french = 'Initiale' %>
+    <% elsif @incident.update_number == 'Final' %>
+      <% update_status = @incident.update_number %>
+      <% update_status_french = 'Finale' %>
+    <% else %>
+      <% update_status = 'Update #' + @incident.update_number %>
+      <% update_status_french = 'Mise-à-jour #' + @incident.update_number %>
     <% end %>
     INOT - <%= @incident.priority %> Priority - <%= update_status %> - 
     <%= @incident.affected_departments %> - <%= @incident.service_impact %> /
-    AI - Priorité <%= t(@incident.priority.to_sym) + update_status_french %> - 
+    AI - Priorité <%= t(@incident.priority.to_sym) %> - <%= update_status_french %> - 
     <%= @departments %> - <%= Application.exists?(english_name: @incident.service_impact) ? Application.where(english_name: @incident.service_impact).take.french_name : Site.where(english_name: @incident.service_impact).take.french_name %>
   </p>
   

@@ -4,12 +4,15 @@ class IncidentsController < ApplicationController
   # GET /incidents
   # GET /incidents.json
   def index
-    @incidents = Incident.order(:updated_at).paginate(page: params[:page], per_page: 25)
+    @incidents = Incident.order(:updated_at).reverse_order.paginate(page: params[:page], per_page: 25)
   end
 
   # GET /incidents/1
   # GET /incidents/1.json
   def show
+
+    # Fetch and create arrays consisting of the french names of each object model type
+    
     @departments = @incident.affected_departments.gsub(/\r\n?/, "\n").split("\n")
     @departments.length.times do |i|
       @departments[i] = Department.exists?(english_name: @departments[i]) ? Department.where(english_name: @departments[i]).take.french_name : @departments[i]
