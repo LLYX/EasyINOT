@@ -5,7 +5,7 @@ class CreateApplications < ActiveRecord::Migration
       t.string :french_name
       t.boolean :critical
 
-      t.timestamps null: false
+      t.timestamps null: true
     end
   end
 end

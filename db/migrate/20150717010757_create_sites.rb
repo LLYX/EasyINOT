@@ -6,7 +6,7 @@ class CreateSites < ActiveRecord::Migration
       t.string :french_name
       t.boolean :designated
 
-      t.timestamps null: false
+      t.timestamps null: true
     end
   end
 end

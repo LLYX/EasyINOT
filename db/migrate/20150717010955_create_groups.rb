@@ -4,7 +4,7 @@ class CreateGroups < ActiveRecord::Migration
       t.string :english_name
       t.string :french_name
 
-      t.timestamps null: false
+      t.timestamps null: true
     end
   end
 end
