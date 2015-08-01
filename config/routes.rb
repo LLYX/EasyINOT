@@ -1,9 +1,24 @@
 Rails.application.routes.draw do
-  resources :mailing_lists
-  resources :groups
-  resources :sites
-  resources :applications
-  resources :departments
+  resources :mailing_lists do
+    collection { post :import }
+  end
+
+  resources :groups do
+    collection { post :import }
+  end
+
+  resources :sites do
+    collection { post :import }
+  end
+
+  resources :applications do
+    collection { post :import }
+  end
+
+  resources :departments do
+    collection { post :import }
+  end
+  
   resources :incidents
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

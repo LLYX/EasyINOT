@@ -8,6 +8,13 @@
 <% end %>
 
 <h1>Listing Groups</h1>
+
+<p>
+  Download:
+  <%= link_to "CSV", groups_path(format: "csv") %> |
+  <%= link_to "Excel", groups_path(format: "xls") %>
+</p>
+
 <%= will_paginate @groups %>
 <table>
   <thead>
@@ -35,5 +42,10 @@
 
 <%= link_to 'New Group', new_group_path, class: "btn btn-sm btn-primary" %>
 
+<h2>Import Groups</h2>
 
+<%= form_tag import_groups_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
 

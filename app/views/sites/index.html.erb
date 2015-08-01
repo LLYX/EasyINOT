@@ -8,6 +8,13 @@
 <% end %>
 
 <h1>Listing Sites</h1>
+
+<p>
+  Download:
+  <%= link_to "CSV", sites_path(format: "csv") %> |
+  <%= link_to "Excel", sites_path(format: "xls") %>
+</p>
+
 <%= will_paginate @sites %>
 <table>
   <thead>
@@ -38,3 +45,10 @@
 <br>
 
 <%= link_to 'New Site', new_site_path, class: "btn btn-sm btn-primary" %>
+
+<h2>Import Sites</h2>
+
+<%= form_tag import_sites_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

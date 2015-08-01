@@ -9,6 +9,12 @@
 
 <h1>Listing Departments</h1>
 
+<p>
+  Download:
+  <%= link_to "CSV", departments_path(format: "csv") %> |
+  <%= link_to "Excel", departments_path(format: "xls") %>
+</p>
+
 <%= will_paginate @departments %>
 <table>
   <thead>
@@ -35,3 +41,9 @@
 <br>
 
 <%= link_to 'New Department', new_department_path, class: "btn btn-sm btn-primary" %>
+
+<h2>Import Departments</h2>
+<%= form_tag import_departments_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

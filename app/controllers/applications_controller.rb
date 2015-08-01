@@ -5,6 +5,12 @@ class ApplicationsController < ApplicationController
   # GET /applications.json
   def index
     @applications = Application.search(params[:search]).order(:english_name).paginate(page: params[:page], per_page: 25)
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @applications.to_csv }
+      format.xls # { send_data @applications.to_csv(col_sep: "\t") }
+    end
   end
 
   # GET /applications/1
@@ -59,6 +65,11 @@ class ApplicationsController < ApplicationController
       format.html { redirect_to applications_url, notice: 'Application was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Application.import(params[:file])
+    redirect_to applications_path, notice: "Applications imported."
   end
 
   private

@@ -9,6 +9,13 @@
 
 <h1>Listing Applications</h1>
 
+<p>
+  Download:
+  <%= link_to "CSV", applications_path(format: "csv") %> |
+  <%= link_to "Excel", applications_path(format: "xls") %>
+</p>
+
+<%= will_paginate @applications %>
 <table>
   <thead>
     <tr>
@@ -36,3 +43,9 @@
 <br>
 
 <%= link_to 'New Application', new_application_path, class: "btn btn-sm btn-primary" %>
+
+<h2>Import Applications</h2>
+<%= form_tag import_applications_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

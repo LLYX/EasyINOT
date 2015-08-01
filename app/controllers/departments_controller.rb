@@ -5,6 +5,12 @@ class DepartmentsController < ApplicationController
   # GET /departments.json
   def index
     @departments = Department.search(params[:search]).order(:english_name).paginate(page: params[:page], per_page: 25)
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @departments.to_csv }
+      format.xls # { send_data @departments.to_csv(col_sep: "\t") }
+    end
   end
 
   # GET /departments/1
@@ -59,6 +65,11 @@ class DepartmentsController < ApplicationController
       format.html { redirect_to departments_url, notice: 'Department was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Department.import(params[:file])
+    redirect_to departments_path, notice: "Departments imported."
   end
 
   private

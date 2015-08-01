@@ -5,6 +5,12 @@ class MailingListsController < ApplicationController
   # GET /mailing_lists.json
   def index
     @mailing_lists = MailingList.search(params[:search]).order(:name).paginate(page: params[:page], per_page: 25)
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @mailing_lists.to_csv }
+      format.xls # { send_data @mailing_lists.to_csv(col_sep: "\t") }
+    end
   end
 
   # GET /mailing_lists/1
@@ -59,6 +65,11 @@ class MailingListsController < ApplicationController
       format.html { redirect_to mailing_lists_url, notice: 'Mailing list was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    MailingList.import(params[:file])
+    redirect_to mailing_lists_path, notice: "Mailing Lists imported."
   end
 
   private

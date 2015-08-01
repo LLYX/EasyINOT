@@ -5,6 +5,12 @@ class SitesController < ApplicationController
   # GET /sites.json
   def index
     @sites = Site.search(params[:search]).order(:english_name).paginate(page: params[:page], per_page: 25)
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @sites.to_csv }
+      format.xls # { send_data @sites.to_csv(col_sep: "\t") }
+    end
   end
 
   # GET /sites/1
@@ -59,6 +65,11 @@ class SitesController < ApplicationController
       format.html { redirect_to sites_url, notice: 'Site was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Site.import(params[:file])
+    redirect_to sites_path, notice: "Sites imported."
   end
 
   private

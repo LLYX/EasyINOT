@@ -5,6 +5,12 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     @groups = Group.search(params[:search]).order(:english_name).paginate(page: params[:page], per_page: 25)
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @groups.to_csv }
+      format.xls # { send_data @groups.to_csv(col_sep: "\t") }
+    end
   end
 
   # GET /groups/1
@@ -59,6 +65,11 @@ class GroupsController < ApplicationController
       format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Group.import(params[:file])
+    redirect_to groups_path, notice: "Groups imported."
   end
 
   private

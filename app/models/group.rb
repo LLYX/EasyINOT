@@ -9,4 +9,21 @@ class Group < ActiveRecord::Base
 	    	all
 	  	end
 	end
+
+	def self.to_csv(options = {})
+	  CSV.generate(options) do |csv|
+	    csv << column_names
+	    all.each do |group|
+	      csv << group.attributes.values_at(*column_names)
+	    end
+	  end
+	end
+
+	def self.import(file)
+	  CSV.foreach(file.path, headers: true) do |row|
+	    group = find_by_id(row["id"]) || new
+	    group.attributes = row.to_hash
+	    group.save!
+	  end
+	end
 end

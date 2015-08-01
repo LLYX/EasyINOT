@@ -8,6 +8,13 @@
 <% end %>
 
 <h1>Listing Mailing Lists</h1>
+
+<p>
+  Download:
+  <%= link_to "CSV", mailing_lists_path(format: "csv") %> |
+  <%= link_to "Excel", mailing_lists_path(format: "xls") %>
+</p>
+
 <%= will_paginate @mailing_lists %>
 <table>
   <thead>
@@ -34,3 +41,10 @@
 <br>
 
 <%= link_to 'New Mailing list', new_mailing_list_path, class: "btn btn-sm btn-primary" %>
+
+<h2>Import Mailing Lists</h2>
+
+<%= form_tag import_mailing_lists_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
