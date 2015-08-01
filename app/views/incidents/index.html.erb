@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<%= form_tag incidents_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :service_impact => nil %>
+  </p>
+<% end %>
+
 <h1>Listing Incidents</h1>
 <%= will_paginate @incidents %>
 <table>
@@ -42,9 +49,9 @@
         <td><%= incident.recorded_start_date_and_time %></td>
         <td><%= incident.resolved_date_and_time %></td>
         <td><%= incident.incident_responsibility %></td>
-        <td><%= link_to 'Show', incident %></td>
-        <td><%= link_to 'Edit', edit_incident_path(incident) %></td>
-        <td><%= link_to 'Destroy', incident, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', incident, class: "btn btn-xs btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_incident_path(incident), class: "btn btn-xs btn-primary" %></td>
+        <td><%= link_to 'Destroy', incident, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-primary" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -52,4 +59,4 @@
 <%= will_paginate @incidents %>
 <br>
 
-<%= link_to 'New Incident', new_incident_path %>
+<%= link_to 'New Incident', new_incident_path, class: "btn btn-sm btn-primary" %>

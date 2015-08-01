@@ -4,7 +4,7 @@ class IncidentsController < ApplicationController
   # GET /incidents
   # GET /incidents.json
   def index
-    @incidents = Incident.order(:updated_at).reverse_order.paginate(page: params[:page], per_page: 25)
+    @incidents = Incident.search(params[:search]).order(:updated_at).reverse_order.paginate(page: params[:page], per_page: 25)
   end
 
   # GET /incidents/1

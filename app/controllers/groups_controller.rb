@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.order(:english_name).paginate(page: params[:page], per_page: 25)
+    @groups = Group.search(params[:search]).order(:english_name).paginate(page: params[:page], per_page: 25)
   end
 
   # GET /groups/1

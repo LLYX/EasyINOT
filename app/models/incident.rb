@@ -27,4 +27,12 @@ class Incident < ActiveRecord::Base
             end
         end
     end
+
+    def self.search(search)
+        if search
+            where('service_impact LIKE ?', "%#{search}%")
+        else
+            all
+        end
+    end
 end

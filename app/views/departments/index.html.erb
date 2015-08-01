@@ -1,6 +1,14 @@
 <p id="notice"><%= notice %></p>
 
+<%= form_tag departments_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :english_name => nil %>
+  </p>
+<% end %>
+
 <h1>Listing Departments</h1>
+
 <%= will_paginate @departments %>
 <table>
   <thead>
@@ -16,9 +24,9 @@
       <tr>
         <td><%= department.english_name %></td>
         <td><%= department.french_name %></td>
-        <td><%= link_to 'Show', department %></td>
-        <td><%= link_to 'Edit', edit_department_path(department) %></td>
-        <td><%= link_to 'Destroy', department, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', department, class: "btn btn-xs btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_department_path(department), class: "btn btn-xs btn-primary" %></td>
+        <td><%= link_to 'Destroy', department, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-primary" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +34,4 @@
 <%= will_paginate @departments %>
 <br>
 
-<%= link_to 'New Department', new_department_path %>
+<%= link_to 'New Department', new_department_path, class: "btn btn-sm btn-primary" %>

@@ -4,7 +4,7 @@ class SitesController < ApplicationController
   # GET /sites
   # GET /sites.json
   def index
-    @sites = Site.order(:english_name).paginate(page: params[:page], per_page: 25)
+    @sites = Site.search(params[:search]).order(:english_name).paginate(page: params[:page], per_page: 25)
   end
 
   # GET /sites/1

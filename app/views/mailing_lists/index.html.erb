@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<%= form_tag mailing_lists_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <h1>Listing Mailing Lists</h1>
 <%= will_paginate @mailing_lists %>
 <table>
@@ -16,9 +23,9 @@
       <tr>
         <td><%= mailing_list.name %></td>
         <td><%= mailing_list.emails %></td>
-        <td><%= link_to 'Show', mailing_list %></td>
-        <td><%= link_to 'Edit', edit_mailing_list_path(mailing_list) %></td>
-        <td><%= link_to 'Destroy', mailing_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', mailing_list, class: "btn btn-xs btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_mailing_list_path(mailing_list), class: "btn btn-xs btn-primary" %></td>
+        <td><%= link_to 'Destroy', mailing_list, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-primary" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +33,4 @@
 <%= will_paginate @mailing_lists %>
 <br>
 
-<%= link_to 'New Mailing list', new_mailing_list_path %>
+<%= link_to 'New Mailing list', new_mailing_list_path, class: "btn btn-sm btn-primary" %>

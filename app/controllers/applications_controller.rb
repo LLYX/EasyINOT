@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
   # GET /applications
   # GET /applications.json
   def index
-    @applications = Application.order(:english_name).paginate(page: params[:page], per_page: 25)
+    @applications = Application.search(params[:search]).order(:english_name).paginate(page: params[:page], per_page: 25)
   end
 
   # GET /applications/1

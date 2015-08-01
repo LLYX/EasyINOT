@@ -9,4 +9,12 @@ class Site < ActiveRecord::Base
         self.english_name = self.site_code + " " + self.english_name
         self.french_name = self.site_code + " " + self.french_name
     end
+
+    def self.search(search)
+		if search
+			where('english_name LIKE ?', "%#{search}%")
+	  	else
+	    	all
+	  	end
+	end
 end

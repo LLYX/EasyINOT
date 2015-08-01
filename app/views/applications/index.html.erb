@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<%= form_tag applications_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :english_name => nil %>
+  </p>
+<% end %>
+
 <h1>Listing Applications</h1>
 
 <table>
@@ -18,9 +25,9 @@
         <td><%= application.english_name %></td>
         <td><%= application.french_name %></td>
         <td><%= application.critical %></td>
-        <td><%= link_to 'Show', application %></td>
-        <td><%= link_to 'Edit', edit_application_path(application) %></td>
-        <td><%= link_to 'Destroy', application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', application, class: "btn btn-xs btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_application_path(application), class: "btn btn-xs btn-primary" %></td>
+        <td><%= link_to 'Destroy', application, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-primary" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +35,4 @@
 <%= will_paginate @applications %>
 <br>
 
-<%= link_to 'New Application', new_application_path %>
+<%= link_to 'New Application', new_application_path, class: "btn btn-sm btn-primary" %>
