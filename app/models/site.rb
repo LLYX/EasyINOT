@@ -46,7 +46,7 @@ class Site < ActiveRecord::Base
     end
 
     def self.import(file)
-      CSV.foreach(file.path, headers: true) do |row|
+      CSV.foreach(file.path, headers: true, :encoding => 'windows-1251:utf-8') do |row|
         site = find_by_id(row["id"]) || new
         site.attributes = row.to_hash
         site.save!

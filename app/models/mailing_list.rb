@@ -18,7 +18,7 @@ class MailingList < ActiveRecord::Base
 	end
 
 	def self.import(file)
-	  CSV.foreach(file.path, headers: true) do |row|
+	  CSV.foreach(file.path, headers: true, :encoding => 'windows-1251:utf-8') do |row|
 	    mailing_list = find_by_id(row["id"]) || new
 	    mailing_list.attributes = row.to_hash
 	    mailing_list.save!

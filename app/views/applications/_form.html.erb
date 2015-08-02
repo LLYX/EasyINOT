@@ -25,11 +25,11 @@
   </div>
   <div class="field">
     <%= f.label :department_ids %><br>
-    <%= f.collection_select(:department_ids, Department.all, :id, :english_name, {:include_hidden => false}, {:multiple => true, :size => 10}) %>
+    <%= f.collection_select(:department_ids, Department.all, :id, :english_name, {:include_hidden => false,  :include_blank => true}, {:multiple => true, :size => 10}) %>
   </div>
   <div class="field">
     <%= f.label :group_ids %><br>
-    <%= f.collection_select(:group_ids, Group.all, :id, :english_name, {:include_hidden => false}, {:multiple => true, :size => 10}) %>
+    <%= f.collection_select(:group_ids, Group.all, :id, :english_name, {:include_hidden => false,  :include_blank => true}, {:multiple => true, :size => 10}) %>
   </div>
   <div class="actions">
     <%= f.submit %>
