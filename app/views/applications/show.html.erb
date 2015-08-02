@@ -15,5 +15,15 @@
   <%= @application.critical %>
 </p>
 
+<p>
+  <strong>Departments:</strong>
+  <%= @application.departments %>
+</p>
+
+<p>
+  <strong>Groups:</strong>
+  <%= @application.groups %>
+</p>
+
 <%= link_to 'Edit', edit_application_path(@application) %> |
 <%= link_to 'Back', applications_path %>
