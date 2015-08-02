@@ -5,7 +5,7 @@ class Application < ActiveRecord::Base
     def departments_string
     	departments_string = ""
     	self.departments.each do |department|
-    		departments_string+= department.english_name
+    		departments_string+= department.english_name + "\n"
     	end
 
     	return departments_string
@@ -14,7 +14,7 @@ class Application < ActiveRecord::Base
     def groups_string
     	groups_string = ""
     	self.groups.each do |group|
-    		groups_string+= group.english_name
+    		groups_string+= group.english_name + "\n"
     	end
 
     	return groups_string
