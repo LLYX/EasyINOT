@@ -25,10 +25,21 @@
       <% update_status = 'Update #' + @incident.update_number %>
       <% update_status_french = 'Mise-à-jour #' + @incident.update_number %>
     <% end %>
+
+    <% subject_impact = "" %>
+    <% subject_impact_french = "" %>
+    <% if @incident.service_impact.split("\n").length > 1 %>
+      <% subject_impact = 'Multiple services impacted' %>
+      <% subject_impact_french = 'Plusieurs services affectés' %>
+    <% else %>
+      <% subject_impact = @incident.service_impact %>
+      <% subject_impact_french = @incident.service_impact_french %>
+    <% end %>
+
     INOT - <%= @incident.priority %> Priority - <%= update_status %> - 
-    <%= @incident.affected_departments %> - <%= @incident.service_impact %> /
+    <%= @incident.affected_departments %> - <%= subject_impact %> /
     AI - Priorité <%= t(@incident.priority.to_sym) %> - <%= update_status_french %> - 
-    <%= @departments %> - <%= Application.exists?(english_name: @incident.service_impact) ? Application.where(english_name: @incident.service_impact).take.french_name : Site.where(english_name: @incident.service_impact).take.french_name %>
+    <%= @incident.affected_departments_french %> - <%= subject_impact_french %>
   </p>
   
   <img src="/assets/sscheader.png">
@@ -54,7 +65,7 @@
       <p style="color:red; text-decoration: underline">
         <strong><%= attr_name.humanize + ':' %></strong>
       </p>
-      <% if ['affected_departments', 'responsible_service_support_resource_group', 
+      <% if ['affected_departments', 'service_impact', 'responsible_service_support_resource_group', 
               'incident_responsibility'].include?(attr_name) %>
         <%= simple_format(attr_value) %><br>
       <% else %>
@@ -66,7 +77,7 @@
       <p style="color:green; text-decoration: underline">
         <strong><%= attr_name.humanize + ':' %></strong>
       </p>
-      <% if ['affected_departments', 'responsible_service_support_resource_group', 
+      <% if ['affected_departments', 'service_impact', 'responsible_service_support_resource_group', 
               'incident_responsibility'].include?(attr_name) %>
         <%= simple_format(attr_value) %><br>
       <% else %>
@@ -97,14 +108,16 @@
       <p style="color:red; text-decoration: underline">
         <strong><%= t(attr_name.to_sym) + ':'  %></strong>
       </p>
-      <% if ['affected_departments', 'responsible_service_support_resource_group', 
+      <% if ['affected_departments', 'service_impact', 'responsible_service_support_resource_group', 
               'incident_responsibility'].include?(attr_name) %>
         <% if attr_name == 'affected_departments' %>
-          <%= simple_format(@departments) %><br>
+          <%= simple_format(@incident.affected_departments_french) %><br>
+        <% elsif attr_name == 'service_impact' %>
+          <%= simple_format(@incident.service_impact_french) %><br>
         <% elsif attr_name == 'responsible_service_support_resource_group' %>
-          <%= simple_format(@groups) %><br>
+          <%= simple_format(@incident.responsible_service_support_resource_group_french) %><br>
         <% elsif attr_name == 'incident_responsibility' %>
-          <%= simple_format(@responsible) %><br>
+          <%= simple_format(@incident.incident_responsibility_french) %><br>
         <% end %>
       <% else %>
         <%= attr_value %><br><br>
@@ -115,14 +128,16 @@
       <p style="color:green; text-decoration: underline">
         <strong><%= t(attr_name.to_sym) + ':'  %></strong>
       </p>
-      <% if ['affected_departments', 'responsible_service_support_resource_group', 
+      <% if ['affected_departments', 'service_impact', 'responsible_service_support_resource_group', 
               'incident_responsibility'].include?(attr_name) %>
         <% if attr_name == 'affected_departments' %>
-          <%= simple_format(@departments) %><br>
+          <%= simple_format(@incident.affected_departments_french) %><br>
+        <% elsif attr_name == 'service_impact' %>
+          <%= simple_format(@incident.service_impact_french) %><br>
         <% elsif attr_name == 'responsible_service_support_resource_group' %>
-          <%= simple_format(@groups) %><br>
+          <%= simple_format(@incident.responsible_service_support_resource_group_french) %><br>
         <% elsif attr_name == 'incident_responsibility' %>
-          <%= simple_format(@responsible) %><br>
+          <%= simple_format(@incident.incident_responsibility_french) %><br>
         <% end %>
       <% else %>
         <%= attr_value %><br><br>

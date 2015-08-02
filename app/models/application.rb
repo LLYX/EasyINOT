@@ -2,6 +2,24 @@ class Application < ActiveRecord::Base
     has_and_belongs_to_many :departments
     has_and_belongs_to_many :groups
 
+    def departments_string
+    	departments_string = ""
+    	self.departments.each do |department|
+    		departments_string+= department.english_name
+    	end
+
+    	return departments_string
+    end
+
+    def groups_string
+    	groups_string = ""
+    	self.groups.each do |group|
+    		groups_string+= group.english_name
+    	end
+
+    	return groups_string
+    end
+
     def self.search(search)
 		if search
 			where('english_name LIKE ?', "%#{search}%")

@@ -4,6 +4,24 @@ class Site < ActiveRecord::Base
     
     before_save :prepend_sitecode
     
+    def departments_string
+      departments_string = ""
+      self.departments.each do |department|
+        departments_string+= department.english_name
+      end
+
+      return departments_string
+    end
+
+    def groups_string
+      groups_string = ""
+      self.groups.each do |group|
+        groups_string+= group.english_name
+      end
+
+      return groups_string
+    end
+    
     private
     def prepend_sitecode
         self.english_name = self.site_code + " " + self.english_name
