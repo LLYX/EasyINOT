@@ -10,12 +10,16 @@
         <Cell><Data ss:Type="String">ID</Data></Cell>
         <Cell><Data ss:Type="String">English Name</Data></Cell>
         <Cell><Data ss:Type="String">French Name</Data></Cell>
+        <Cell><Data ss:Type="String">Departments</Data></Cell>
+        <Cell><Data ss:Type="String">Groups</Data></Cell>
       </Row>
     <% @sites.each do |site| %>
       <Row>
         <Cell><Data ss:Type="Number"><%= site.id %></Data></Cell>
         <Cell><Data ss:Type="String"><%= site.english_name %></Data></Cell>
         <Cell><Data ss:Type="String"><%= site.french_name  %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= site.departments_string  %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= site.groups_string  %></Data></Cell>
       </Row>
     <% end %>
     </Table>
