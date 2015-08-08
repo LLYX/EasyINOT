@@ -20,7 +20,7 @@ class Department < ActiveRecord::Base
 	end
 
 	def self.import(file)
-	  CSV.foreach(file.path, headers: true, :encoding => 'windows-1251:utf-8') do |row|
+	  CSV.foreach(file.path, headers: true, :encoding => 'windows-1252') do |row|
 	    department = find_by_id(row["id"]) || new
 	    department.attributes = row.to_hash
 	    department.save!
