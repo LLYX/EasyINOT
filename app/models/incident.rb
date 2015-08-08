@@ -1,5 +1,9 @@
 class Incident < ActiveRecord::Base
-    before_save :auto_fill
+    before_save :auto_fill, :test_interpolation
+
+    def test_interpolation
+        self.status = self.status % {service: self.service_impact, departments: self.affected_departments}
+    end
     
     def affected_departments_french
         affected_departments_french = self.affected_departments.gsub(/\r\n?/, "\n").split("\n")
