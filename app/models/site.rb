@@ -38,9 +38,10 @@ class Site < ActiveRecord::Base
 
     def self.to_csv(options = {})
       CSV.generate(options) do |csv|
-        csv << column_names
+        csv << ["id", "site_code", "english_name", "french_name", "designated", "departments", "groups"]
         all.each do |site|
-          csv << site.attributes.values_at(*column_names)
+          csv << [site.id, site.site_code, site.english_name, site.french_name, site.designated, 
+            site.departments.map { |d| d.english_name }.join(','), site.groups.map { |g| g.english_name }.join(',')]
         end
       end
     end
@@ -48,7 +49,9 @@ class Site < ActiveRecord::Base
     def self.import(file)
       CSV.foreach(file.path, headers: true, :encoding => 'windows-1252') do |row|
         site = find_by_id(row["id"]) || new
-        site.attributes = row.to_hash
+        site.attributes = row.to_hash.slice('site_code', 'english_name', 'french_name', 'designated')
+        site.departments = Department.where(english_name: row['departments'])
+        site.groups = Group.where(english_name: row['groups'])
         site.save!
       end
     end
