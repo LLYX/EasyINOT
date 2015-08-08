@@ -5,13 +5,13 @@ class Site < ActiveRecord::Base
     before_save :prepend_sitecode
     
     def departments_string
-      departments_string = site.departments.map { |d| d.english_name }.join(',')
+      departments_string = self.departments.map { |d| d.english_name }.join(',')
       
       return departments_string
     end
 
     def groups_string
-      groups_string = site.groups.map { |g| g.english_name }.join(',')
+      groups_string = self.groups.map { |g| g.english_name }.join(',')
 
       return groups_string
     end
