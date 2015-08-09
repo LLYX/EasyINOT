@@ -56,10 +56,14 @@
   </div>
   <div class="field">
     <%= f.label :status %><br>
+    <%= select_tag(:status, options_from_collection_for_select(Phrase.where(version: 'status'), :english_phrase, :english_phrase), {:multiple => true, :size => 10, :include_blank => true}) %>
+    <br>
     <%= f.text_area :status %>
   </div>
   <div class="field">
     <%= f.label :resolution %><br>
+    <%= select_tag(:resolution, options_from_collection_for_select(Phrase.where(version: 'resolution'), :english_phrase, :english_phrase), {:multiple => true, :size => 10, :include_blank => true}) %>
+    <br>
     <%= f.text_area :resolution %>
   </div>
   <div class="field">

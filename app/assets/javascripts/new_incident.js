@@ -31,7 +31,13 @@ ready = function() {
     
     var group_selectbox = document.getElementById("responsible_service_support_resource_group");
     var group_textbox = document.getElementById("incident_responsible_service_support_resource_group");
+
+    var status_selectbox = document.getElementById("status");
+    var status_textbox = document.getElementById("incident_status");
     
+    var resolution_selectbox = document.getElementById("resolution");
+    var resolution_textbox = document.getElementById("incident_resolution");
+
     var responsibility_selectbox = document.getElementById("incident_responsibility");
     var responsibility_textbox = document.getElementById("incident_incident_responsibility"); 
     
@@ -57,6 +63,14 @@ ready = function() {
     
     group_selectbox.addEventListener("change", function() {
         getSelectValues(group_selectbox, group_textbox);
+    });
+
+    status_selectbox.addEventListener("change", function() {
+        getSelectValues(status_selectbox, status_textbox);
+    });
+
+    resolution_selectbox.addEventListener("change", function() {
+        getSelectValues(resolution_selectbox, resolution_textbox);
     });
     
     responsibility_selectbox.addEventListener("change", function() {

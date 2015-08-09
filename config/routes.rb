@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :phrases
+  resources :phrases do
+    collection { post :import }
+  end
+  
   resources :mailing_lists do
     collection { post :import }
   end

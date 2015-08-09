@@ -1,9 +1,5 @@
 class Incident < ActiveRecord::Base
-    before_save :auto_fill, :test_interpolation
-
-    def test_interpolation
-        self.status = self.status % {service: self.service_impact, departments: self.affected_departments}
-    end
+    before_save :auto_fill
     
     def affected_departments_french
         affected_departments_french = self.affected_departments.gsub(/\r\n?/, "\n").split("\n")
@@ -59,6 +55,48 @@ class Incident < ActiveRecord::Base
         return incident_responsibility_french
     end
 
+    #String interpolate status/resolution in English and French
+
+    def interpolated_status
+        return self.status % { affected_departments: self.affected_departments, service_impact: self.service_impact, responsible_service_support_resource_group: self.responsible_service_support_resource_group, incident_responsibility: self.incident_responsibility }
+    end
+
+    def interpolated_status_french
+        status_french = self.status.gsub(/\r\n?/, "\n").split("\n")
+
+        status_french.length.times do |i|
+            status_french[i] = Phrase.exists?(english_phrase: status_french[i]) ? Phrase.where(english_phrase: status_french[i]).take.french_phrase : status_french[i]
+        end
+
+        status_french = status_french.join("\n") % { affected_departments: self.affected_departments_french, service_impact: self.service_impact_french, responsible_service_support_resource_group: self.responsible_service_support_resource_group_french, incident_responsibility: self.incident_responsibility_french }
+
+        return status_french
+    end
+
+    def interpolated_resolution
+        return self.resolution % { affected_departments: self.affected_departments, service_impact: self.service_impact, responsible_service_support_resource_group: self.responsible_service_support_resource_group, incident_responsibility: self.incident_responsibility }
+    end
+
+    def interpolated_resolution_french
+        resolution_french = self.resolution.gsub(/\r\n?/, "\n").split("\n")
+
+        resolution_french.length.times do |i|
+            resolution_french[i] = Phrase.exists?(english_phrase: resolution_french[i]) ? Phrase.where(english_phrase: resolution_french[i]).take.french_phrase : resolution_french[i]
+        end
+
+        resolution_french = resolution_french.join("\n") % { affected_departments: self.affected_departments_french, service_impact: self.service_impact_french, responsible_service_support_resource_group: self.responsible_service_support_resource_group_french, incident_responsibility: self.incident_responsibility_french }
+
+        return resolution_french
+    end
+
+    def self.search(search)
+        if search
+            where('incident_number LIKE ?', "%#{search}%")
+        else
+            all
+        end
+    end
+
     private
 
     # Fetch the associated departments and support groups of an application/site and fill them into the incident
@@ -110,14 +148,6 @@ class Incident < ActiveRecord::Base
                 end
                 self.responsible_service_support_resource_group = groups_string
             end
-        end
-    end
-
-    def self.search(search)
-        if search
-            where('incident_number LIKE ?', "%#{search}%")
-        else
-            all
         end
     end
 end
