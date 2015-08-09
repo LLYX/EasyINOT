@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">English Phrase</Data></Cell>
+        <Cell><Data ss:Type="String">French Phrase</Data></Cell>
+        <Cell><Data ss:Type="String">Version</Data></Cell>
+      </Row>
+    <% @phrases.each do |phrase| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= phrase.id %></Data></Cell>
+        <Cell><Data ss:Type="Text"><%= phrase.english_phrase %></Data></Cell>
+        <Cell><Data ss:Type="Text"><%= phrase.french_phrase %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= phrase.version %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
