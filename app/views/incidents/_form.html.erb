@@ -13,13 +13,13 @@
 
   <div class="field">
     <%= f.label :from %><br>
-    <%= select_tag(:from, options_from_collection_for_select(MailingList.all, :emails, :name), :include_blank => true) %>
+    <%= select_tag(:from, options_from_collection_for_select(MailingList.all.order(:name), :emails, :name), :include_blank => true) %>
     <br>
     <%= f.text_area :from %>
   </div>
   <div class="field">
     <%= f.label :to %><br>
-     <%= select_tag(:to, options_from_collection_for_select(MailingList.all, :emails, :name), {:multiple => true, :size => 10, :include_blank => true}) %>
+     <%= select_tag(:to, options_from_collection_for_select(MailingList.all.order(:name), :emails, :name), {:multiple => true, :size => 10, :include_blank => true}) %>
     <br>
     <%= f.text_area :to %>
   </div>
@@ -33,20 +33,20 @@
   </div>
   <div class="field">
     <%= f.label :affected_departments %><br>
-    <%= select_tag(:affected_departments, options_from_collection_for_select(Department.all, :english_name, :english_name), {:multiple => true, :size => 10, :include_blank => true}) %>
+    <%= select_tag(:affected_departments, options_from_collection_for_select(Department.all.order(:english_name), :english_name, :english_name), {:multiple => true, :size => 10, :include_blank => true}) %>
     <br>
     <%= f.text_area :affected_departments %>
   </div>
   <div class="field">
     <%= f.label :service_impact %><br>
-    <%= select_tag(:service_impact, options_from_collection_for_select(Application.all, :english_name, :english_name), {:multiple => true, :size => 10, :include_blank => true}) %>
+    <%= select_tag(:service_impact, options_from_collection_for_select(Application.all.order(:english_name), :english_name, :english_name), {:multiple => true, :size => 10, :include_blank => true}) %>
     <%= select_tag(:service_impact, options_from_collection_for_select(Site.all, :english_name, :english_name), {:multiple => true, :size => 10, :include_blank => true}) %>
     <br>
     <%= f.text_area :service_impact %>
   </div>
   <div class="field">
     <%= f.label :responsible_service_support_resource_group %><br>
-    <%= select_tag(:responsible_service_support_resource_group, options_from_collection_for_select(Group.all, :english_name, :english_name), {:multiple => true, :size => 10, :include_blank => true}) %>
+    <%= select_tag(:responsible_service_support_resource_group, options_from_collection_for_select(Group.all.order(:english_name), :english_name, :english_name), {:multiple => true, :size => 10, :include_blank => true}) %>
     <br>
     <%= f.text_area :responsible_service_support_resource_group %>
   </div>
@@ -56,13 +56,13 @@
   </div>
   <div class="field">
     <%= f.label :status %><br>
-    <%= select_tag(:status, options_from_collection_for_select(Phrase.where(version: 'status'), :english_phrase, :english_phrase), {:multiple => true, :size => 10, :include_blank => true}) %>
+    <%= select_tag(:status, options_from_collection_for_select(Phrase.where(version: 'status').order(:english_phrase), :english_phrase, :english_phrase), {:multiple => true, :size => 10, :include_blank => true}) %>
     <br>
     <%= f.text_area :status %>
   </div>
   <div class="field">
     <%= f.label :resolution %><br>
-    <%= select_tag(:resolution, options_from_collection_for_select(Phrase.where(version: 'resolution'), :english_phrase, :english_phrase), {:multiple => true, :size => 10, :include_blank => true}) %>
+    <%= select_tag(:resolution, options_from_collection_for_select(Phrase.where(version: 'resolution').order(:english_phrase), :english_phrase, :english_phrase), {:multiple => true, :size => 10, :include_blank => true}) %>
     <br>
     <%= f.text_area :resolution %>
   </div>
@@ -84,7 +84,7 @@
   </div>
   <div class="field">
     <%= f.label :incident_responsibility %><br>
-    <%= select_tag(:incident_responsibility, options_from_collection_for_select(Department.all, :english_name, :english_name), {:multiple => true, :size => 10, :include_blank => true}) %>
+    <%= select_tag(:incident_responsibility, options_from_collection_for_select(Department.all.order(:english_name), :english_name, :english_name), {:multiple => true, :size => 10, :include_blank => true}) %>
     <br>
     <%= f.text_area :incident_responsibility %>
   </div>
