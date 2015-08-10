@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :phrases
   resources :phrases do
     collection { post :import }
   end
