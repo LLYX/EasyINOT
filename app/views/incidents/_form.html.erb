@@ -13,9 +13,9 @@
 
   <div class="field">
     <%= f.label :from %><br>
-    <%= select_tag(:from, options_from_collection_for_select(MailingList.all.order(:name), :emails, :name), :include_blank => true) %>
+    <%= select_tag(:from, options_from_collection_for_select(MailingList.all.order(:name), :emails, :name,  :selected => 'SSC-SPC_ECC-CCE@ssc-spc.gc.ca; '), :include_blank => true) %>
     <br>
-    <%= f.text_area :from %>
+    <%= f.text_area :from, :value => 'SSC-SPC_ECC-CCE@ssc-spc.gc.ca; ' %>
   </div>
   <div class="field">
     <%= f.label :to %><br>

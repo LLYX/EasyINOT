@@ -67,6 +67,11 @@ class PhrasesController < ApplicationController
     end
   end
 
+  def import
+    Phrase.import(params[:file])
+    redirect_to phrases_path, notice: "Phrases imported."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_phrase
