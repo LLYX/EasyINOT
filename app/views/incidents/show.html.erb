@@ -26,6 +26,16 @@
       <% update_status_french = 'Mise-à-jour #' + @incident.update_number %>
     <% end %>
 
+    <% subject_affected = "" %>
+    <% subject_affected_french = "" %>
+    <% if @incident.affected_departments.split("\n").length > 1 %>
+      <% subject_affected = 'Multiple departments affected' %>
+      <% subject_affected_french = 'Plusieurs ministères affectés' %>
+    <% else %>
+      <% subject_affected = @incident.affected_departments %>
+      <% subject_affected_french = @incident.affected_departments_french %>
+    <% end %>
+
     <% subject_impact = "" %>
     <% subject_impact_french = "" %>
     <% if @incident.service_impact.split("\n").length > 1 %>
@@ -37,9 +47,9 @@
     <% end %>
 
     INOT - <%= @incident.priority %> Priority - <%= update_status %> - 
-    <%= @incident.affected_departments %> - <%= subject_impact %> /
+    <%= subject_affected %> - <%= subject_impact %> /
     AI - Priorité <%= t(@incident.priority.to_sym) %> - <%= update_status_french %> - 
-    <%= @incident.affected_departments_french %> - <%= subject_impact_french %>
+    <%= subject_affected_french %> - <%= subject_impact_french %>
   </p>
   
   <img src="/assets/sscheader.png">
