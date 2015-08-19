@@ -11,17 +11,17 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :english_phrase %><br>
-    <%= f.text_area :english_phrase %>
+    <%= f.text_area :english_phrase, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :french_phrase %><br>
-    <%= f.text_area :french_phrase %>
+    <%= f.text_area :french_phrase, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :version %><br>
-    <%= f.text_field :version %>
+    <%= f.text_field :version, :class => "form-control" %>
   </div>
   <div class="actions">
     <%= f.submit %>

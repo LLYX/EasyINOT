@@ -11,25 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :english_name %><br>
-    <%= f.text_field :english_name %>
+    <%= f.text_field :english_name, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :french_name %><br>
-    <%= f.text_field :french_name %>
+    <%= f.text_field :french_name, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :critical %><br>
     <%= f.check_box :critical %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :department_ids %><br>
-    <%= f.collection_select(:department_ids, Department.all, :id, :english_name, {:include_hidden => false,  :include_blank => true}, {:multiple => true, :size => 10}) %>
+    <%= f.collection_select(:department_ids, Department.all, :id, :english_name, {:include_hidden => false,  :include_blank => true}, {:multiple => true, :size => 10, :class => "form-control"}) %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :group_ids %><br>
-    <%= f.collection_select(:group_ids, Group.all, :id, :english_name, {:include_hidden => false,  :include_blank => true}, {:multiple => true, :size => 10}) %>
+    <%= f.collection_select(:group_ids, Group.all, :id, :english_name, {:include_hidden => false,  :include_blank => true}, {:multiple => true, :size => 10, :class => "form-control"}) %>
   </div>
   <div class="actions">
     <%= f.submit %>
