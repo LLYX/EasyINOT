@@ -31,13 +31,13 @@ class Site < ActiveRecord::Base
 	end
 
     def self.to_csv(options = {})
-      CSV.generate(options) do |csv|
+      (CSV.generate(options) do |csv|
         csv << ["id", "site_code", "english_name", "french_name", "designated", "departments", "groups"]
         all.each do |site|
           csv << [site.id, site.site_code, site.english_name, site.french_name, site.designated, 
             site.departments.map { |d| d.english_name }.join(','), site.groups.map { |g| g.english_name }.join(',')]
         end
-      end
+      end).encode('windows-1252', :undef => :replace, :replace => '')
     end
 
     def self.import(file)
