@@ -36,8 +36,8 @@ class Application < ActiveRecord::Base
 	  CSV.foreach(file.path, headers: true, :encoding => 'windows-1252') do |row|
 	    application = find_by_id(row["id"]) || new
 	    application.attributes = row.to_hash.slice('english_name', 'french_name', 'critical')
-	    application.departments = Department.where(english_name: row['departments'].split(','))
-	    application.groups = Group.where(english_name: row['groups'])
+	    application.departments = !row['departments'].nil? ? Department.where(english_name: row['departments'].split(',')) :
+	    application.groups = !row['groups'].nil? ? Group.where(english_name: row['groups'].split(',')) :
 	    application.save!
 	  end
 	end
