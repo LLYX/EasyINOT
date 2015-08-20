@@ -23,20 +23,20 @@ class Application < ActiveRecord::Base
 	end
 
 	def self.to_csv(options = {})
-	  CSV.generate(options) do |csv|
+	  (CSV.generate(options) do |csv|
 	    csv << ["id", "english_name", "french_name", "critical", "departments", "groups"]
 	    all.each do |application|
 	      csv << [application.id, application.english_name, application.french_name, application.critical, 
 	      	application.departments.map { |d| d.english_name }.join(','), application.groups.map { |g| g.english_name }.join(',')]
 	    end
-	  end
+	  end).encode('windows-1252', :undef => :replace, :replace => '')
 	end
 
 	def self.import(file)
 	  CSV.foreach(file.path, headers: true, :encoding => 'windows-1252') do |row|
 	    application = find_by_id(row["id"]) || new
 	    application.attributes = row.to_hash.slice('english_name', 'french_name', 'critical')
-	    application.departments = Department.where(english_name: row['departments'])
+	    application.departments = Department.where(english_name: row['departments'].split(','))
 	    application.groups = Group.where(english_name: row['groups'])
 	    application.save!
 	  end

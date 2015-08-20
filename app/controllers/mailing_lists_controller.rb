@@ -8,7 +8,7 @@ class MailingListsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @mailing_lists.to_csv }
+      format.csv { send_data MailingList.all.to_csv }
       format.xls # { send_data @mailing_lists.to_csv(col_sep: "\t") }
     end
   end

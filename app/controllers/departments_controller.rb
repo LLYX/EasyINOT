@@ -8,7 +8,7 @@ class DepartmentsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @departments.to_csv }
+      format.csv { send_data Department.all.to_csv }
       format.xls # { send_data @departments.to_csv(col_sep: "\t") }
     end
   end
