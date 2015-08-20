@@ -1,5 +1,6 @@
 class Incident < ActiveRecord::Base
-    before_save :auto_fill, :increment_update_number
+    before_save :auto_fill
+    before_update :increment_update_number
     
     def affected_departments_french
         affected_departments_french = self.affected_departments.gsub(/\r\n?/, "\n").split("\n")
