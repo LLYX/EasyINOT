@@ -13,7 +13,12 @@ ready = function() {
             }
         }
         
-        text_box.value = values.join("\n");
+        if (text_box.value == "" || values[0] == "") {
+            text_box.value = values.join("\n");
+        }
+        else {
+            text_box.value+= "\n" + values.join("\n");
+        }
     }
     
     var from_selectbox = document.getElementById("from");
