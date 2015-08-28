@@ -145,8 +145,8 @@
         <%= simple_format(@incident.responsible_service_support_resource_group_french) %><br>
       <% elsif attr_name == 'incident_responsibility' %>
          <%= simple_format(@incident.incident_responsibility_french) %><br>
-      <% elsif attr_name == 'status' %>
-        <%= simple_format(@incident.interpolated_status_french) %><br>
+      <% elsif attr_name == 'resolution' %>
+        <%= simple_format(@incident.interpolated_resolution_french) %><br>
       <% else %>
         <%= attr_value %><br><br>
       <% end %>
