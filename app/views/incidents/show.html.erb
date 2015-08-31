@@ -72,7 +72,7 @@
     <% if !@incident.resolved? && ['id', 'from', 'to', 'update_number','priority', 'resolved', 'resolution', 
       'resolved_date_and_time','created_at', 'updated_at'].exclude?(attr_name)  %>
       <p style="color:red; text-decoration: underline">
-        <strong><%= attr_name.humanize + ':' %></strong>
+        <strong><%= attr_name.humanize %></strong>
       </p>
       <% if ['affected_departments', 'service_impact', 'responsible_service_support_resource_group', 
               'incident_responsibility'].include?(attr_name) %>
@@ -85,7 +85,7 @@
     <% elsif @incident.resolved? && ['id', 'from', 'to', 'to2', 'to3', 'to4','to5', 'update_number', 'priority', 
       'resolved', 'status', 'created_at', 'updated_at'].exclude?(attr_name) %>
       <p style="color:green; text-decoration: underline">
-        <strong><%= attr_name.humanize + ':' %></strong>
+        <strong><%= attr_name.humanize %></strong>
       </p>
       <% if ['affected_departments', 'service_impact', 'responsible_service_support_resource_group', 
               'incident_responsibility'].include?(attr_name) %>
@@ -117,7 +117,7 @@
     <% if !@incident.resolved? && ['id', 'from', 'to','update_number', 'priority', 'resolved', 'resolution', 
       'resolved_date_and_time', 'created_at', 'updated_at'].exclude?(attr_name)  %>
       <p style="color:red; text-decoration: underline">
-        <strong><%= t(attr_name.to_sym) + ':'  %></strong>
+        <strong><%= t(attr_name.to_sym)  %></strong>
       </p>
       <% if attr_name == 'affected_departments' %>
         <%= simple_format(@incident.affected_departments_french) %><br>
@@ -135,7 +135,7 @@
     <% elsif @incident.resolved? && ['id', 'from', 'to', 'update_number', 'priority', 'resolved', 'status', 
       'created_at', 'updated_at'].exclude?(attr_name) %>
       <p style="color:green; text-decoration: underline">
-        <strong><%= t(attr_name.to_sym) + ':'  %></strong>
+        <strong><%= t(attr_name.to_sym)  %></strong>
       </p>
       <% if attr_name == 'affected_departments' %>
         <%= simple_format(@incident.affected_departments_french) %><br>
