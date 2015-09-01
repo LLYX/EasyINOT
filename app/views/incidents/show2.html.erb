@@ -1,0 +1,258 @@
+<p id="notice"><%= notice %></p>
+
+<div class="show_inot">
+  <p>
+    <strong>From:</strong>
+    <%= @incident.from %>
+  </p>
+  
+  <p>
+    <strong>To:</strong>
+    <%= @incident.to %>
+  </p>
+  
+  <p>
+    <strong>Subject:</strong>
+    <% update_status = "" %>
+    <% update_status_french = "" %>
+    <% if @incident.update_number == '0' %>
+      <% update_status = 'Initial' %>
+      <% update_status_french = 'Initiale' %>
+    <% elsif @incident.update_number == 'Final' %>
+      <% update_status = @incident.update_number %>
+      <% update_status_french = 'Finale' %>
+    <% else %>
+      <% update_status = 'Update #' + @incident.update_number %>
+      <% update_status_french = 'Mise-à-jour #' + @incident.update_number %>
+    <% end %>
+
+    <% subject_affected = "" %>
+    <% subject_affected_french = "" %>
+    <% if @incident.affected_departments.split("\n").length > 1 %>
+      <% subject_affected = 'Multiple departments affected' %>
+      <% subject_affected_french = 'Plusieurs ministères affectés' %>
+    <% else %>
+      <% subject_affected = @incident.affected_departments %>
+      <% subject_affected_french = @incident.affected_departments_french %>
+    <% end %>
+
+    <% subject_impact = "" %>
+    <% subject_impact_french = "" %>
+    <% if @incident.service_impact.split("\n").length > 1 %>
+      <% subject_impact = 'Multiple services impacted' %>
+      <% subject_impact_french = 'Plusieurs services affectés' %>
+    <% else %>
+      <% subject_impact = @incident.service_impact %>
+      <% subject_impact_french = @incident.service_impact_french %>
+    <% end %>
+
+    INOT - <%= @incident.priority %> Priority - <%= update_status %> - 
+    <%= subject_affected %> - <%= subject_impact %> /
+    AI - Priorité <%= t(@incident.priority.to_sym) %> - <%= update_status_french %> - 
+    <%= subject_affected_french %> - <%= subject_impact_french %>
+  </p>
+
+  <img src="/assets/sscheader.png">
+
+  <p style="color:blue; font-style:italic">Le français suit l'anglais.</p>
+    
+  <% if !@incident.resolved? %>
+    <h3 style="color:red; text-align:center">
+      <strong>Outage Alert</strong><br>
+      <strong><%= @incident.priority + ' Priority' %></strong><br>
+    </h3>
+
+    <p style="color:red; text-decoration: underline">
+        <strong>Affected Departments</strong>
+    </p>
+    <%= simple_format(@incident.affected_departments) %><br>
+
+    <p style="color:red; text-decoration: underline">
+       <strong>Service Impact</strong>
+    </p>
+    <%= simple_format(@incident.service_impact) %><br>
+
+    <p style="color:red; text-decoration: underline">
+      <strong>Responsible Service Support Resource Group</strong> 
+    </p>
+    <%= simple_format(@incident.responsible_service_support_resource_group) %><br>
+
+    <p style="color:red; text-decoration: underline">
+      <strong>Status</strong>
+    </p>
+    <%= simple_format(@incident.interpolated_status) %><br>
+      
+    <p style="color:red; text-decoration: underline">
+      <strong>Incident Number</strong>
+    </p>
+    <%= @incident.incident_number %><br><br>
+
+    <p style="color:red; text-decoration: underline">
+      <strong>Actual Start date and Time</strong>
+    </p>
+    <%= @incident.actual_start_date_and_time %><br><br>
+
+    <p style="color:red; text-decoration: underline">
+      <strong>Recorded Date and Time</strong>
+    </p>
+    <%= @incident.recorded_date_and_time %><br><br>
+
+    <p style="color:red; text-decoration: underline">
+       <strong>Incident Responsibility</strong>
+    </p>
+    <%= simple_format(@incident.incident_responsibility) %><br>
+
+    <br>
+
+    <h3 style="color:red; text-align:center">
+      <strong>Avertissement de panne</strong><br>
+      <strong><%= 'Priorité ' + t(@incident.priority.to_sym) %></strong><br>
+    </h3>
+
+    <p style="color:red; text-decoration: underline">
+        <strong>t("affected_department".to_sym)</strong>
+    </p>
+    <%= simple_format(@incident.affected_departments_french) %><br>
+
+    <p style="color:red; text-decoration: underline">
+       <strong>t("service_impact".to_sym)</strong>
+    </p>
+    <%= simple_format(@incident.service_impact_french) %><br>
+
+    <p style="color:red; text-decoration: underline">
+      <strong>t("responsible_service_support_resource_group".to_sym)</strong> 
+    </p>
+    <%= simple_format(@incident.responsible_service_support_resource_group_french) %><br>
+
+    <p style="color:red; text-decoration: underline">
+      <strong>t("status".to_sym)</strong>
+    </p>
+    <%= simple_format(@incident.interpolated_status_french) %><br>
+      
+    <p style="color:red; text-decoration: underline">
+      <strong>t("incident_number.to_sym)</strong>
+    </p>
+    <%= @incident.incident_number %><br><br>
+
+    <p style="color:red; text-decoration: underline">
+      <strong>t("actual_start_date_and_time".to_sym)</strong>
+    </p>
+    <%= @incident.actual_start_date_and_time %><br><br>
+
+    <p style="color:red; text-decoration: underline">
+      <strong>t("recorded_date_and_time".to_sym)</strong>
+    </p>
+    <%= @incident.recorded_date_and_time %><br><br>
+
+    <p style="color:red; text-decoration: underline">
+       <strong>t("incident_responsibility".to_sym)</strong>
+    </p>
+    <%= simple_format(@incident.incident_responsibility_french) %><br>
+
+  <% else %>
+    <h3 style="color:green; text-align:center">
+      <strong>Resolution Alert</strong><br>
+      <strong><%= @incident.priority + ' Priority' %></strong><br>
+    </h3>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>Affected Departments</strong>
+    </p>
+    <%= simple_format(@incident.affected_departments) %><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>Service Impact</strong>
+    </p>
+    <%= simple_format(@incident.service_impact) %><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>Responsible Service Support Resource group</strong>
+    </p>
+    <%= simple_format(@incident.responsible_service_support_resource_group) %><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>Resolution</strong>
+    </p>
+    <%= simple_format(@incident.interpolated_resolution) %><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>Incident Number</strong>
+    </p>
+    <%= @incident.incident_number %><br><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>Actual Start Date and Time</strong>
+    </p>
+    <%= @incident.actual_start_date_and_time %><br><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>Recorded Date and Time</strong>
+    </p>
+    <%= @incident.recorded_date_and_time %><br><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>Resolved Date and Time</strong>
+    </p>
+    <%= @incident.resolved_date_and_time %><br><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>Incident Responsibility</strong>
+    </p>
+    <%= simple_format(@incident.incident_responsibility) %><br>
+
+    <br>
+
+    <h3 style="color:green; text-align:center">
+      <strong>Avertissement de résolution</strong><br>
+      <strong><%= 'Priorité ' + t(@incident.priority.to_sym) %></strong><br>
+    </h3>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>t("affected_department".to_sym)</strong>
+    </p>
+    <%= simple_format(@incident.affected_departments_french) %><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>t('service_impact".to_sym)</strong>
+    </p>
+    <%= simple_format(@incident.service_impact_french) %><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>t("responsible_service_support_resource_group".to_sym)</strong>
+    </p>
+    <%= simple_format(@incident.responsible_service_support_resource_group_french) %><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>t("resolution".to_sym)</strong>
+    </p>
+    <%= simple_format(@incident.interpolated_resolution_french) %><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>t("incident_number".to_sym)</strong>
+    </p>
+    <%= @incident.incident_number %><br><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>t("actual_start_date_and_time".to_sym)</strong>
+    </p>
+    <%= @incident.actual_start_date_and_time %><br><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>t("recorded_date_and_time".to_sym)</strong>
+    </p>
+    <%= @incident.recorded_date_and_time %><br><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>t("resolved_date_and_time".to_sym)</strong>
+    </p>
+    <%= @incident.resolved_date_and_time %><br><br>
+
+    <p style="color:green; text-decoration: underline">
+      <strong>t("incident_responsibility".to_sym)</strong>
+    </p>
+    <%= simple_format(@incident.incident_responsibility_french) %><br>
+  <% end %> 
+</div>
+
+<%= link_to 'Edit', edit_incident_path(@incident) %> |
+<%= link_to 'Back', incidents_path %>
